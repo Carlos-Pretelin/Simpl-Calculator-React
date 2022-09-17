@@ -1,5 +1,6 @@
 import React, { useReducer,  } from "react";
 import DiggitButton from "./DiggitButton";
+import OperationButton from "./OperationButton";
 import '../styles/App.scss';
 
 
@@ -17,6 +18,14 @@ export const ACTIONS = {
 function reducer(state, {type, payload}){
     switch(type){
         case ACTIONS.ADD_DIGIT:
+            if( payload.digit === "0" && state.currentOperand === "0"){
+                return state
+            }
+            if( payload.digit === "." && state.currentOperand.includes(".")){
+                return state
+            }
+
+
             return{
                 ...state,
                 currentOperand: `${state.currentOperand || ""}${payload.digit}`
@@ -45,22 +54,25 @@ function App(){
 
         <button className="span-two">AC</button>
         <button>DEL</button>
-        <button>/</button>
+        <OperationButton operation={"/"} dispatch={dispatch} />
+
         <DiggitButton digit={"1"} dispatch={dispatch} />
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>*</button>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button>+</button>
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button>-</button>
-        <button>.</button>
-        <button>0</button>
+        <DiggitButton digit={"2"} dispatch={dispatch} />
+        <DiggitButton digit={"3"} dispatch={dispatch} />
+        <OperationButton operation={"*"} dispatch={dispatch} />
+        
+        <DiggitButton digit={"4"} dispatch={dispatch} />
+        <DiggitButton digit={"5"} dispatch={dispatch} />
+        <DiggitButton digit={"6"} dispatch={dispatch} />
+        <OperationButton operation={"+"} dispatch={dispatch} />
+
+        <DiggitButton digit={"7"} dispatch={dispatch} />
+        <DiggitButton digit={"8"} dispatch={dispatch} />
+        <DiggitButton digit={"9"} dispatch={dispatch} />
+        <OperationButton operation={"-"} dispatch={dispatch} />
+
+        <DiggitButton digit={"."} dispatch={dispatch} />
+        <DiggitButton digit={"0"} dispatch={dispatch} />
         <button className="span-two">=</button>
         
         </div>

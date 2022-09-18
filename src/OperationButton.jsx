@@ -1,6 +1,6 @@
 import { ACTIONS } from "./App";
 import React from "react";
-//import '../styles/OperationButton.scss'
+
 
 
 
@@ -10,8 +10,10 @@ function OperationButton({dispatch, operation}) {
     return (
         <button
         
-        onClick={ () => dispatch( { type: ACTIONS.CHOOSE_OPERATION, payload: { operation } }) }>
-            {operation}
+        onClick={ () => 
+            dispatch( { type: ACTIONS.CHOOSE_OPERATION, payload: { operation } }) }
+            >
+                {operation}
         </button>
     )
 

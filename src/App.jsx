@@ -17,6 +17,7 @@ export const ACTIONS = {
 
 function reducer(state, {type, payload}){
     switch(type){
+
         case ACTIONS.ADD_DIGIT:
             if( payload.digit === "0" && state.currentOperand === "0"){
                 return state
@@ -30,8 +31,24 @@ function reducer(state, {type, payload}){
                 ...state,
                 currentOperand: `${state.currentOperand || ""}${payload.digit}`
             }
+
+        case ACTIONS.CHOOSE_OPERATION:
+            if(state.currentOperand == null && state.previousOperand == null ) {
+                return state
+            }
+            if(state.previousOperand == null ){
+                return{
+                    ...state,
+                    operation: payload.operation,
+                    previousOperand: state.currentOperand,
+                    currentOperand: null,
+                }
+            }
+            
         case ACTIONS.CLEAR:
             return {}    
+
+        
     }
 
 }
@@ -49,11 +66,13 @@ function App(){
         
         <div className="calculator-grid">
             <div className="output">
-                <div className="previous-operand">{previousOperand}</div>
-                <div className="current-operand">{currentOperand}</div>
+                {/* <div className="previous-operand">{previousOperand}</div>
+                <div className="current-operand">{currentOperand}</div> */}
+                <div className="previous-operand">123213</div>
+                <div className="current-operand">5555555</div>
             </div>
 
-        <div className="buttons">
+        
         <button className="span-two, ac-button" onClick={ () => {dispatch({type: ACTIONS.CLEAR})}}>AC</button>
         <button className="delete-button">DEL</button>
         <OperationButton operation={"/"} dispatch={dispatch} />
@@ -79,7 +98,7 @@ function App(){
         <DiggitButton digit={"."} dispatch={dispatch} />
         <DiggitButton digit={"0"} dispatch={dispatch} />
         <button className="span-two, zero">=</button>
-        </div>
+        
         
         
         </div>

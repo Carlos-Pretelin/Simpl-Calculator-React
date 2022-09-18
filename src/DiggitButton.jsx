@@ -1,6 +1,6 @@
 import { ACTIONS } from "./App";
 import React from "react";
-import '../styles/DigitButton.scss';
+//import '../styles/DigitButton.scss';
 
 
 

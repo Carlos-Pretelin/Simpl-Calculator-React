@@ -29,8 +29,10 @@ function reducer(state, {type, payload}){
 
             return{
                 ...state,
-                currentOperand: `${state.currentOperand || ""}${payload.digit}`
+                currentOperand: `${state.currentOperand || ""}${payload.digit}`,
             }
+
+            
 
         case ACTIONS.CHOOSE_OPERATION:
             if(state.currentOperand == null && state.previousOperand == null ) {
@@ -66,15 +68,15 @@ function App(){
         
         <div className="calculator-grid">
             <div className="output">
-                {/* <div className="previous-operand">{previousOperand}</div>
-                <div className="current-operand">{currentOperand}</div> */}
-                <div className="previous-operand">123213</div>
-                <div className="current-operand">5555555</div>
+                <div className="previous-operand">{previousOperand}</div>
+                <div className="current-operand">{currentOperand}</div>
+              
             </div>
 
         
         <button className="span-two, ac-button" onClick={ () => {dispatch({type: ACTIONS.CLEAR})}}>AC</button>
         <button className="delete-button">DEL</button>
+
         <OperationButton operation={"/"} dispatch={dispatch} />
         <OperationButton operation={"*"} dispatch={dispatch} />
         <OperationButton operation={"+"} dispatch={dispatch} />

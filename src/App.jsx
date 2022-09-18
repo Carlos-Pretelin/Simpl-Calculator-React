@@ -19,7 +19,14 @@ function reducer(state, {type, payload}){
     switch(type){
 
         case ACTIONS.ADD_DIGIT:
-            
+            if(state.overwrite){
+                return{
+                    ...state,
+                    currentOperand: payload.digit,
+                    overwrite: false,
+                }
+            }
+
             if( payload.digit === "0" && state.currentOperand === "0"){
                 return state
             }
@@ -66,8 +73,27 @@ function reducer(state, {type, payload}){
             }
             
         case ACTIONS.CLEAR:
-            return {}    
-         
+            return {}   
+            
+            
+
+        case ACTIONS.DELETE_DIGIT:
+            if(state.overwrite) {
+                return{
+                    ...state,
+                    overwrite: false,
+                    currentOperand: null,
+                }
+            }
+            if(state.currentOperand == null) return state
+            if(state.currentOperand.length === 1 ){
+                return {... state, currentOperand: null}
+            }
+            return {
+                ...state,
+                currentOperand: state.currentOperand.slice(0, -1)
+            }
+
         case ACTIONS.EVALUATE:
             if(state.operation == null || state.currentOperand == null || state.previousOperand == null){
                 return state
@@ -111,6 +137,18 @@ function evaluate({currentOperand, previousOperand, operation}){
 }
 
 
+const INTEGER_FORMATTER =  new Intl.NumberFormat("en-us",{
+    maximumFractionDigits: 0,
+})
+
+function formatOperand(operand){
+    if(operand == null ) return
+    const [integer, decimal] = operand.split('.')
+    if(decimal == null ) return INTEGER_FORMATTER.format(integer)
+    return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
+
+}
+
 function App(){
 
 
@@ -122,14 +160,14 @@ function App(){
         
         <div className="calculator-grid">
             <div className="output">
-                <div className="previous-operand">{previousOperand}</div>
-                <div className="current-operand">{currentOperand}</div>
+                <div className="previous-operand">{formatOperand(previousOperand)}</div>
+                <div className="current-operand">{formatOperand(currentOperand)}</div>
               
             </div>
 
         
         <button className="span-two" onClick={ () => {dispatch({type: ACTIONS.CLEAR})}}>AC</button>
-        <button className="delete-button">DEL</button>
+        <button className="delete-button" onClick={ () => {dispatch({type: ACTIONS.DELETE_DIGIT})}}>DEL</button>
 
         <OperationButton operation={"/"} dispatch={dispatch} />
         <OperationButton operation={"*"} dispatch={dispatch} />

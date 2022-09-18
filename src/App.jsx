@@ -170,24 +170,24 @@ function App(){
         <button className="delete-button" onClick={ () => {dispatch({type: ACTIONS.DELETE_DIGIT})}}>DEL</button>
 
         <OperationButton operation={"/"} dispatch={dispatch} />
-        <OperationButton operation={"*"} dispatch={dispatch} />
-        <OperationButton operation={"+"} dispatch={dispatch} />
-        <OperationButton operation={"-"} dispatch={dispatch} />
+        
+        
+        
 
         <DiggitButton digit={"1"} dispatch={dispatch} />
         <DiggitButton digit={"2"} dispatch={dispatch} />
         <DiggitButton digit={"3"} dispatch={dispatch} />
-        
+        <OperationButton operation={"*"} dispatch={dispatch} />
         
         <DiggitButton digit={"4"} dispatch={dispatch} />
         <DiggitButton digit={"5"} dispatch={dispatch} />
         <DiggitButton digit={"6"} dispatch={dispatch} />
-        
+        <OperationButton operation={"+"} dispatch={dispatch} />
 
         <DiggitButton digit={"7"} dispatch={dispatch} />
         <DiggitButton digit={"8"} dispatch={dispatch} />
         <DiggitButton digit={"9"} dispatch={dispatch} />
-        
+        <OperationButton operation={"-"} dispatch={dispatch} />
 
         <DiggitButton digit={"."} dispatch={dispatch} />
         <DiggitButton digit={"0"} dispatch={dispatch} />
